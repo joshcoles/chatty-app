@@ -5,6 +5,26 @@ import ChatBar from './ChatBar.jsx';
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    currentUser: {name: "Bob"},
+      messages: [
+        {
+          id: 0,
+          username: "Bob",
+          content: "Has anyone seen my marbles?",
+        },
+        {
+          id: 1,
+          username: "Anonymous",
+          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
+        }
+      ]
+    }
+  }
+
+
   render() {
   console.log("Rendering <App />");
     return (
@@ -12,8 +32,8 @@ class App extends Component {
         <nav>
           <h1>Chatty</h1>
         </nav>
-        <MessageList  />
-        <ChatBar />
+        <MessageList messages={this.state.messages} />
+        <ChatBar currentUser={this.state.currentUser} />
       </div>
     );
   }

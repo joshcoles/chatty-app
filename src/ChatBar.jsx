@@ -8,7 +8,8 @@ class ChatBar extends Component {
         <input
           id="username"
           type="text"
-          placeholder="Your Name (Optional)"
+          placeholder="{Your Name (Optional)}"
+          value={this.props.currentUser.name}
         />
         <input
           id="new-message"
@@ -20,3 +21,8 @@ class ChatBar extends Component {
   }
 }
 export default ChatBar;
+
+
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}

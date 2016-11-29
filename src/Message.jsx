@@ -7,18 +7,14 @@ class Message extends Component {
       <div>
         <div className="message">
           <span className="username">
-            Anonymous1:
+            {this.props.username}
           </span>
-          <span className="content">I won't be impressed with technology until I can download food.</span>
+          <span className="content">
+            {this.props.content}
+          </span>
           </div>
       </div>
     );
   }
 }
 export default Message;
-
-
-
-
-
-
