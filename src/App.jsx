@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import MessageList from './MessageList.jsx';
 import ChatBar from './ChatBar.jsx';
 
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -42,6 +40,12 @@ class App extends Component {
       // Calling setState will trigger a call to render() in App and all child components.
       this.setState({messages: messages})
     }, 3000);
+
+    this.socket = new WebSocket('ws://localhost:4000/');
+
+    this.socket.onopen = function(event) {
+      console.log("Client connected to server via socket, event:", event);
+    }
   }
 
   render() {
