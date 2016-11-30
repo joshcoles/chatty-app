@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    currentUser: {name: "Bob"},
+      currentUser: {name: "Bob"},
       messages: [
         {
           id: 0,
@@ -22,6 +22,13 @@ class App extends Component {
         }
       ]
     }
+  }
+
+  addMessage(username, content) {
+    console.log('app component received username', username, 'and content', content);
+    let newMessage = {username: username, content: content, id: Date.now()};
+    let listWithNewMessage = this.state.messages.concat(newMessage);
+    this.setState({messages: listWithNewMessage});
   }
 
   componentDidMount() {
@@ -38,14 +45,14 @@ class App extends Component {
   }
 
   render() {
-  console.log("Rendering <App />");
+    console.log("Rendering <App />");
     return (
       <div>
         <nav>
           <h1>Chatty</h1>
         </nav>
         <MessageList messages={this.state.messages} />
-        <ChatBar currentUser={this.state.currentUser} />
+        <ChatBar currentUser={this.state.currentUser} newMessage={this.addMessage.bind(this)}/>
       </div>
     );
   }
