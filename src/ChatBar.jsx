@@ -21,6 +21,10 @@ class ChatBar extends Component {
     }
   }
 
+  updateNameOnBlur(event) {
+    this.props.changeCurrentUser({username: event.target.value})
+  }
+
   onContentChangeHandler(event) {
     // console.log('content change', event.target.value);
     this.setState({content: event.target.value});
@@ -43,7 +47,8 @@ class ChatBar extends Component {
           placeholder="Your Name (Optional)"
           value={this.state.username}
           onChange={this.onUsernameChangeHandler.bind(this)}
-          onKeyDown={ this.updateName.bind(this) }
+          onKeyDown={this.updateName.bind(this)}
+          onBlur={ this.updateNameOnBlur.bind(this)}
         />
         <input
           id="new-message"

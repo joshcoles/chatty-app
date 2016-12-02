@@ -73,12 +73,17 @@ class App extends Component {
 
         console.log("I made it: ", data);
 
+        if (data.oldUsername) {
+          data.content = `${data.oldUsername} has changed their name to ${data.currentUser}`;
+          let oldMessages = this.state.messages;
+          let combinedMessages = oldMessages.concat(data);
+          this.setState({messages: combinedMessages})
+        } else {
+          return;
+        }
 
-        data.content = `${data.oldUsername} has changed their name to ${data.currentUser}`;
-
-        let oldMessages = this.state.messages;
-        let combinedMessages = oldMessages.concat(data);
-        this.setState({messages: combinedMessages})
+        // TODO: these lines make it so that name changes
+        // only work if one user is on the site.
 
         this.setState({currentUser: {username: data.currentUser}});
       }
