@@ -10,7 +10,8 @@ class App extends Component {
 // Original state being set
     this.state = {
       currentUser: {username: ""},
-      messages: []
+      messages: [],
+      numberOfUsersOnline: 0
     }
   }
 
@@ -20,8 +21,9 @@ class App extends Component {
 // server to be handled.
 // ==========================================================
   changeCurrentUser(currentUser) {
+
     let oldUsername = this.state.currentUser.username;
-    console.log("What I hope is the old username", currentUser.username)
+
     this.setState({currentUser: {username: currentUser.username}});
 
     let newUserName = {
@@ -34,7 +36,6 @@ class App extends Component {
 
 // ==========================================================
 // for adding new messages to messageList
-//
 // ==========================================================
   addMessage(username, content) {
     let newMessage = {
@@ -53,10 +54,12 @@ class App extends Component {
 
 // ==========================================================
 // Where new messages will be handled
-//
 // ==========================================================
   componentDidMount() {
     this.socket = new WebSocket('ws://localhost:4000/');
+
+    // this.socket.onconnection
+
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       console.log(data);
@@ -82,10 +85,12 @@ class App extends Component {
           return;
         }
 
-        // TODO: these lines make it so that name changes
-        // only work if one user is on the site.
+// ==========================================================
+// for handling messages that edit the number of users online
+// ==========================================================
 
-        this.setState({currentUser: {username: data.currentUser}});
+      } else if (type === "numberOfUsersOnline") {
+        this.setState({numberOfUsersOnline: data.numberOfUsersOnline})
       }
     }
     this.socket.onopen = (event) => {
@@ -98,6 +103,7 @@ class App extends Component {
       <div>
         <nav>
           <h1>Chatty</h1>
+          <p>Number of users online: {this.state.numberOfUsersOnline}</p>
         </nav>
         <MessageList messages={this.state.messages} currentUser={this.state.currentUser} />
         <ChatBar currentUser={this.state.currentUser} newMessage={this.addMessage.bind(this)} changeCurrentUser={this.changeCurrentUser.bind(this)} />

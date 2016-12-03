@@ -16,6 +16,11 @@ nav { height: 40px;
 
 nav h1 {
   margin: 0;
+  float: left;
+}
+
+nav p {
+  float: right;
 }
 
 #message-list {
